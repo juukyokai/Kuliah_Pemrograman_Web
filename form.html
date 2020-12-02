@@ -42,9 +42,8 @@
                         var dataResult = JSON.parse(dataResult);
                         if(dataResult.statusCode==200){
                             $("#butsave").removeAttr("disabled");
-                            $('#fupForm').find('input:text').val('');
-                            $("#success").show();
-                            $('#insertModal').hide();			
+                            $('#fupForm').find('input="text"').val('');
+                            $("#success").show();	
                         }
                         else if(dataResult.statusCode==201){
                         alert("Error occured !");

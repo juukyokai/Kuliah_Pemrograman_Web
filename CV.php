@@ -112,12 +112,30 @@
                 </div>
             </div>
         </div>
-
-        <!-- form script -->
+        <!-- delete script -->
+        <script>
+            //hapus data mahasiswa berdasarkan IdMhsw
+            $('#load_edu').on('click', '#deleteBtn', function() {
+                var ID = $(this).val();
+                $.ajax({
+                    url: 'delete_data.php',
+                    type: 'post',
+                    data: {
+                        ID: ID
+                    },
+                    success: function(data) {
+                        alert(data);
+                        
+                    }
+                });
+            });
+        }
+        </script>
+        <!-- form modal script -->
         <script>
             var modal = document.getElementById("insertModal");
             var insertBtn = document.getElementById("insertBtn");
-            var saveBtn = document.getElementById("saveBtn");
+            var saveBtn = document.getElementById("butsave");
             var span = document.getElementsByClassName("close");
             insertBtn.onclick = function() {
                 modal.style.display = "block";

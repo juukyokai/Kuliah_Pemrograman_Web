@@ -9,7 +9,7 @@
         echo ("
         <li class='padding-small'>
             (" . $row_education['Y_BEGIN'] . "-" . $row_education['Y_END'] . ") " . $row_education['NAMA'] ."
-            <button type='submit' href='' class='' name='delete'>DELETE</button>
+            <button id='deleteBtn' type='button' value=". $row_education['ID'] .">DELETE</button>
         </li>
         ");
     }

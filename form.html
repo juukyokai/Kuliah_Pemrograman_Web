@@ -1,0 +1,60 @@
+<div id="insertModal" class="modal fade">
+    <div class="modal-content">
+        <div class="modal-header">						
+            <h4 class="modal-title">Delete User</h4>
+        </div>
+        <form id="fupForm" name="form1" method="post" class="padding">
+            <div class="">
+                <label for="edu" style="color:black">Year Begin     :</label>
+                <input type="text" class="" id="Y_BEGIN" placeholder="Year Begin" name="Year Begin">
+            </div>
+            <div class="">
+                <label for="edu" style="color:black">Year End       :</label>
+                <input type="text" class="" id="Y_END" placeholder="Year End" name="Year End">
+            </div>
+            <div class="">
+                <label for="edu" style="color:black">Nama Almamater :</label>
+                <input type="text" class="" id="NAMA_ALMAMATER" placeholder="Nama Almamater" name="Nama Almamater">
+            </div>
+            <input type="button" name="save" class="" value="Save to database" id="butsave">
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#butsave').on('click', function() {
+            $("#butsave").attr("disabled", "disabled");
+            var Y_BEGIN = $('#Y_BEGIN').val();
+            var Y_END = $('#Y_END').val();
+            var NAMA_ALMAMATER = $('#NAMA_ALMAMATER').val();
+            if(Y_BEGIN!="" && Y_END!="" && NAMA_ALMAMATER!=""){
+                $.ajax({
+                    url: "insert_data.php",
+                    type: "POST",
+                    data: {
+                        Y_BEGIN: Y_BEGIN,
+                        Y_END: Y_END,
+                        NAMA_ALMAMATER: NAMA_ALMAMATER,	
+                    },
+                    cache: false,
+                    success: function(dataResult){
+                        var dataResult = JSON.parse(dataResult);
+                        if(dataResult.statusCode==200){
+                            $("#butsave").removeAttr("disabled");
+                            $('#fupForm').find('input:text').val('');
+                            $("#success").show();
+                            $('#insertModal').hide();			
+                        }
+                        else if(dataResult.statusCode==201){
+                        alert("Error occured !");
+                        }
+                    }
+                });
+            }
+            else{
+                alert('Please fill all the field !');
+            }
+        });
+    });
+</script>

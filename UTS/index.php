@@ -1,11 +1,6 @@
 <?php
     include("db_connect.php");
-    if(isset($_POST['harga'])){
-        //query
-        $sql_barang = "SELECT * from barang ORDER BY harga";
-    }else{
-        $sql_barang = "SELECT * from barang";
-    }
+    
     
     if(isset($_POST['save'])){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

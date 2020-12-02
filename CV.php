@@ -3,7 +3,6 @@
     include('db_connect.php');
     //Getting Profile Data
     $sql_profile = "SELECT * FROM profil";
-    $sql_education = "SELECT * FROM education";
     $sql_p_skills = "SELECT * FROM skill WHERE JENIS = 'P_SKILL'";
     $sql_l_skills = "SELECT * FROM skill WHERE JENIS = 'L_SKILL'";
 ?>
@@ -12,6 +11,16 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                setInterval(function(){
+                    $("#load_edu").load('load_education.php')
+                }, 0);
+            });
+        </script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>
             Curriculum Vitae
         </title>
@@ -48,19 +57,12 @@
                 <div id="education" style="padding-bottom: 25px;">
                     <h2 class="spread"><img class="image-prep" style="width:72px; height:auto" src="asset/icons/education.png"> EDUCATION</h2>
                     <ul class='' style="margin-left: 30px;">
-                    <?php
-                        //executing education query
-                        $result = $conn->query($sql_education);
-                        echo "";
-                        while ($row_education = mysqli_fetch_array($result)){
-                            echo ("
-                            <li class='padding-small'>
-                                (" . $row_education['Y_BEGIN'] . "-" . $row_education['Y_END'] . ") " . $row_education['NAMA'] ."
-                            </li>
-                            ");
-                        }
-                    ?>
+                    <div id="load_edu"><!-- ajax for education --></div>
                     </ul>
+                    <button type='button' id='insertBtn' class='' name='insert'>INSERT</button>
+                    <?php
+                        require('form.html');
+                    ?>
                 </div>
                 <div id="p_skills">
                     <h2 class="spread"><img class="image-prep" style="width:60px; height:auto" src="asset/icons/P_skills.png"> Practical Skills</h2>
@@ -109,8 +111,32 @@
                     </ul>
                 </div>
             </div>
-        </div>        
+        </div>
+
+        <!-- form script -->
+        <script>
+            var modal = document.getElementById("insertModal");
+            var insertBtn = document.getElementById("insertBtn");
+            var saveBtn = document.getElementById("saveBtn");
+            var span = document.getElementsByClassName("close");
+            insertBtn.onclick = function() {
+                modal.style.display = "block";
+            }
+            saveBtn.onclick = function() {
+                modal.style.display = "none"
+            }
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                }
+            }
+        </script>
         </body>
+        
 </html>
 
 <?php
